@@ -18,7 +18,7 @@ const PasswordInput = styled(TextInput)`
   }
 `;
 
-const Login = ({ onSubmit, schema, children }) => {
+const Login = ({ onSubmit, schema, children, displayForgotPassword }) => {
   const [passwordShown, setPasswordShown] = useState(false);
   const { formatMessage } = useIntl();
 
@@ -150,7 +150,7 @@ const Login = ({ onSubmit, schema, children }) => {
         </Formik>
         {children}
       </LayoutContent>
-      <Flex justifyContent="center">
+      {displayForgotPassword && <Flex justifyContent="center">
         <Box paddingTop={4}>
           <Link to="/auth/forgot-password">
             {formatMessage({
@@ -159,17 +159,19 @@ const Login = ({ onSubmit, schema, children }) => {
             })}
           </Link>
         </Box>
-      </Flex>
+      </Flex>}
     </Main>
   );
 };
 
 Login.defaultProps = {
+  displayForgotPassword: true,
   children: null,
   onSubmit() {},
 };
 
 Login.propTypes = {
+  displayForgotPassword: PropTypes.bool,
   children: PropTypes.node,
   onSubmit: PropTypes.func,
   schema: PropTypes.shape({

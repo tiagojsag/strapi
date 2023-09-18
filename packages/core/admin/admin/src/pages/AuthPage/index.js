@@ -18,7 +18,7 @@ import { FORMS } from './constants';
 import init from './init';
 import { initialState, reducer } from './reducer';
 
-const AuthPage = ({ hasAdmin, setHasAdmin }) => {
+const AuthPage = ({ hasAdmin, setHasAdmin, displayForgotPassword }) => {
   const {
     push,
     location: { search },
@@ -303,6 +303,7 @@ const AuthPage = ({ hasAdmin, setHasAdmin }) => {
       onSubmit={handleSubmit}
       requestError={requestError}
       schema={schema}
+      displayForgotPassword={displayForgotPassword}
     />
   );
 };
@@ -312,6 +313,7 @@ AuthPage.defaultProps = {
 };
 
 AuthPage.propTypes = {
+  displayForgotPassword: PropTypes.bool.isRequired,
   hasAdmin: PropTypes.bool,
   setHasAdmin: PropTypes.func.isRequired,
 };
