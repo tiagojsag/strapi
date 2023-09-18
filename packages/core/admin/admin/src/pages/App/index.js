@@ -59,7 +59,7 @@ function App() {
   const toggleNotification = useNotification();
   const { updateProjectSettings } = useConfigurations();
   const { formatMessage } = useIntl();
-  const [{ isLoading, hasAdmin, uuid, deviceId }, setState] = useState({
+  const [{ isLoading, hasAdmin, uuid, deviceId, displayForgotPassword }, setState] = useState({
     isLoading: true,
     hasAdmin: false,
   });
@@ -107,7 +107,7 @@ function App() {
       try {
         const {
           data: {
-            data: { hasAdmin, uuid, menuLogo, authLogo },
+            data: { hasAdmin, uuid, menuLogo, authLogo, displayForgotPassword },
           },
         } = await get(`/admin/init`);
 
@@ -150,7 +150,7 @@ function App() {
           }
         }
 
-        setState({ isLoading: false, hasAdmin, uuid, deviceId });
+        setState({ isLoading: false, hasAdmin, uuid, deviceId, displayForgotPassword });
       } catch (err) {
         toggleNotification({
           type: 'warning',
@@ -187,7 +187,12 @@ function App() {
           <Route
             path="/auth/:authType"
             render={(routerProps) => (
-              <AuthPage {...routerProps} setHasAdmin={setHasAdmin} hasAdmin={hasAdmin} />
+              <AuthPage
+                {...routerProps}
+                setHasAdmin={setHasAdmin}
+                hasAdmin={hasAdmin}
+                displayForgotPassword={displayForgotPassword}
+              />
             )}
             exact
           />

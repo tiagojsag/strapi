@@ -36,9 +36,10 @@ module.exports = {
 
   async init() {
     let uuid = strapi.config.get('uuid', false);
+    let displayForgotPassword = strapi.config.get('admin.forgotPassword.displayForgotPassword', true);
     const hasAdmin = await getService('user').exists();
     const { menuLogo, authLogo } = await getService('project-settings').getProjectSettings();
-    // set to null if telemetryDisabled flag not avaialble in package.json
+    // set to null if telemetryDisabled flag not available in package.json
     const telemetryDisabled = strapi.config.get('packageJsonStrapi.telemetryDisabled', null);
 
     if (telemetryDisabled !== null && telemetryDisabled === true) {
@@ -51,6 +52,7 @@ module.exports = {
         hasAdmin,
         menuLogo: menuLogo ? menuLogo.url : null,
         authLogo: authLogo ? authLogo.url : null,
+        displayForgotPassword,
       },
     };
   },
